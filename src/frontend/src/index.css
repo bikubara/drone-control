@@ -1,0 +1,223 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2")
+    format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0.1 0.01 240;
+    --foreground: 0.9 0.03 210;
+    --card: 0.13 0.015 235;
+    --card-foreground: 0.9 0.03 210;
+    --popover: 0.13 0.015 235;
+    --popover-foreground: 0.9 0.03 210;
+    --primary: 0.82 0.16 198;
+    --primary-foreground: 0.1 0.01 240;
+    --secondary: 0.18 0.02 235;
+    --secondary-foreground: 0.75 0.05 210;
+    --muted: 0.17 0.02 235;
+    --muted-foreground: 0.52 0.05 215;
+    --accent: 0.6 0.14 192;
+    --accent-foreground: 0.1 0.01 240;
+    --destructive: 0.58 0.23 25;
+    --destructive-foreground: 0.98 0.01 0;
+    --border: 0.22 0.03 230;
+    --input: 0.18 0.02 235;
+    --ring: 0.82 0.16 198;
+    --radius: 2px;
+    --chart-1: 0.82 0.16 198;
+    --chart-2: 0.72 0.2 145;
+    --chart-3: 0.75 0.16 85;
+    --chart-4: 0.58 0.23 25;
+    --chart-5: 0.65 0.18 292;
+    --sidebar: 0.11 0.01 240;
+    --sidebar-foreground: 0.9 0.03 210;
+    --sidebar-primary: 0.82 0.16 198;
+    --sidebar-primary-foreground: 0.1 0.01 240;
+    --sidebar-accent: 0.17 0.02 235;
+    --sidebar-accent-foreground: 0.75 0.05 210;
+    --sidebar-border: 0.22 0.03 230;
+    --sidebar-ring: 0.82 0.16 198;
+    --hud-cyan: oklch(0.82 0.16 198);
+    --hud-cyan-dim: oklch(0.5 0.1 198);
+    --hud-green: oklch(0.72 0.2 145);
+    --hud-amber: oklch(0.75 0.16 85);
+    --hud-red: oklch(0.58 0.23 25);
+    --hud-panel: oklch(0.13 0.015 235);
+    --hud-border: oklch(0.26 0.06 198 / 0.5);
+    --scan-line: rgba(0, 220, 255, 0.03);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Bricolage Grotesque", sans-serif;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .mono {
+    font-family: "JetBrains Mono", monospace;
+  }
+}
+
+@layer utilities {
+  .hud-panel {
+    background: var(--hud-panel);
+    border: 1px solid var(--hud-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hud-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      var(--scan-line) 0px,
+      var(--scan-line) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hud-glow {
+    box-shadow: 0 0 12px -2px oklch(0.82 0.16 198 / 0.3), inset 0 1px 0
+      oklch(0.82 0.16 198 / 0.15);
+  }
+
+  .hud-text {
+    color: var(--hud-cyan);
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .hud-label {
+    color: oklch(0.52 0.05 215);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .btn-emergency {
+    background: oklch(0.58 0.23 25);
+    color: oklch(0.98 0.01 0);
+    border: 1px solid oklch(0.7 0.25 25);
+    box-shadow: 0 0 20px oklch(0.58 0.23 25 / 0.4);
+    transition: all 0.15s;
+  }
+
+  .btn-emergency:hover {
+    background: oklch(0.65 0.26 25);
+    box-shadow: 0 0 30px oklch(0.65 0.26 25 / 0.6);
+  }
+
+  .btn-takeoff {
+    background: oklch(0.65 0.2 145);
+    color: oklch(0.1 0.01 240);
+    border: 1px solid oklch(0.75 0.22 145);
+    box-shadow: 0 0 12px oklch(0.65 0.2 145 / 0.3);
+    transition: all 0.15s;
+  }
+
+  .btn-takeoff:hover {
+    background: oklch(0.72 0.22 145);
+    box-shadow: 0 0 20px oklch(0.72 0.22 145 / 0.5);
+  }
+
+  .btn-land {
+    background: oklch(0.5 0.12 220);
+    color: oklch(0.95 0.02 210);
+    border: 1px solid oklch(0.65 0.14 220);
+    box-shadow: 0 0 12px oklch(0.5 0.12 220 / 0.3);
+    transition: all 0.15s;
+  }
+
+  .btn-land:hover {
+    background: oklch(0.6 0.14 220);
+  }
+
+  .btn-rth {
+    background: oklch(0.62 0.14 85);
+    color: oklch(0.1 0.01 240);
+    border: 1px solid oklch(0.75 0.16 85);
+    box-shadow: 0 0 12px oklch(0.62 0.14 85 / 0.3);
+    transition: all 0.15s;
+  }
+
+  .btn-rth:hover {
+    background: oklch(0.72 0.16 85);
+  }
+
+  .corner-tl::before,
+  .corner-tl::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 1px;
+    background: var(--hud-cyan);
+  }
+  .corner-tl::after {
+    width: 1px;
+    height: 10px;
+  }
+
+  @keyframes pulse-rec {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+  .rec-indicator {
+    animation: pulse-rec 1.2s ease-in-out infinite;
+  }
+
+  @keyframes sweep {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+}
