@@ -2,7 +2,7 @@ import Float "mo:core/Float";
 import Int "mo:core/Int";
 import Text "mo:core/Text";
 import Time "mo:core/Time";
-import List "mo:core/List";
+import Array "mo:core/Array";
 import Runtime "mo:core/Runtime";
 
 actor {
@@ -39,14 +39,14 @@ actor {
   var signalStrength : Nat = 100;
   var altitudeLimit : Float = 120.0;
 
-  let missionLog = List.empty<LogEntry>();
+  var missionLog : [LogEntry] = [];
 
   func logEvent(message : Text) {
     let entry : LogEntry = {
       timestamp = Time.now();
       message;
     };
-    missionLog.add(entry);
+    missionLog := Array.append(missionLog, [entry]);
   };
 
   func updateState(newPosition : Position, newAltitude : Float) {
@@ -199,7 +199,7 @@ actor {
   };
 
   public query ({ caller }) func getMissionLog() : async [LogEntry] {
-    missionLog.toArray();
+    missionLog
   };
 
   public shared ({ caller }) func simulateTick() : async () {
